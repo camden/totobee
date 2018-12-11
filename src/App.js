@@ -3,6 +3,8 @@ import firebase from 'firebase/app';
 import { Firestore, Storage } from './firebase';
 import ImageUpload from './ImageUpload';
 
+import styles from './App.scss';
+
 // Returns a promise
 const getVisitInfo = () => {
   return new Promise((resolve, reject) => {
@@ -126,7 +128,7 @@ class App extends React.Component {
     const { position } = this.state;
     return (
       <div>
-        <h1>Where's Caesar?</h1>
+        <h1 className={styles.title}>Where's Caesar?</h1>
         <h2>To log your find, we need some info from you!</h2>
         {this.state.loading ? <div>LOADING</div> : null}
         <label htmlFor="name">Your Name: </label>
