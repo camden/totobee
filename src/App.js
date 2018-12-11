@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase/app';
-import { Firestore } from './firestore';
+import { Firestore, Storage } from './firebase';
+import ImageUpload from './ImageUpload';
 
 // Returns a promise
 const getVisitInfo = () => {
@@ -19,6 +20,7 @@ class App extends React.Component {
       position: null,
       timestamp: null,
       name: '',
+      image: null,
     };
   }
 
@@ -45,20 +47,28 @@ class App extends React.Component {
     this.setState({ name });
   };
 
-  submitToFirebase = () => {
-    // Add a second document with a generated ID.
-    const { name, position, timestamp } = this.state;
-    if (!name || !position || !timestamp) {
-      alert('Need all fields to be filled out!');
-      return false;
-    }
+  getImageRef(imageUrl) {
+    const version = 'caesar';
+    const imageName = 'img2.jpg';
+    const imageStorageRef = Storage.child(`images/${version}/${imageName}`);
+    return imageStorageRef;
+  }
 
-    this.setState({
-      loading: true,
+  uploadImageToFirebase(imageUrl) {
+    return new Promise((resolve, reject) => {
+      return this.getImageRef(imageUrl)
+        .putString(imageUrl, 'data_url')
+        .then(snapshot => {
+          resolve(snapshot);
+        })
+        .catch(reject);
     });
+  }
 
-    Firestore.collection('visits')
+  uploadMetadata({ name, position, timestamp, imageUrl }) {
+    return Firestore.collection('visits')
       .add({
+        imageUrl,
         name,
         location: new firebase.firestore.GeoPoint(
           position.latitude,
@@ -73,12 +83,43 @@ class App extends React.Component {
       })
       .catch(function(error) {
         console.error('Error adding document: ', error);
+      });
+  }
+
+  submitToFirebase = () => {
+    // Add a second document with a generated ID.
+    const { name, position, timestamp, image } = this.state;
+    if (!name || !position || !timestamp || !image) {
+      alert('Need all fields to be filled out!');
+      return false;
+    }
+
+    this.setState({
+      loading: true,
+    });
+
+    this.uploadImageToFirebase(image)
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(imageUrl => {
+        return this.uploadMetadata({
+          name,
+          position,
+          timestamp,
+          imageUrl,
+        });
       })
       .finally(() => {
         this.setState({
           loading: false,
         });
       });
+  };
+
+  handleImageChange = imageURL => {
+    this.setState(state => ({
+      ...state,
+      image: imageURL,
+    }));
   };
 
   render() {
@@ -95,6 +136,7 @@ class App extends React.Component {
           value={this.state.name}
           onChange={this.handleNameChange}
         />
+        <ImageUpload onImageChange={this.handleImageChange} />
         <button onClick={this.logVisit}>Get Location</button>
         <div>
           Position: {position && position.latitude} x{' '}
@@ -105,7 +147,12 @@ class App extends React.Component {
         <button
           onClick={this.submitToFirebase}
           disabled={
-            !(this.state.position && this.state.timestamp && this.state.name)
+            !(
+              this.state.position &&
+              this.state.timestamp &&
+              this.state.name &&
+              this.state.image
+            )
           }
         >
           Submit
