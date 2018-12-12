@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './ImageUpload.scss';
+
 class ImageUpload extends React.Component {
   constructor(props) {
     super(props);
@@ -29,16 +31,34 @@ class ImageUpload extends React.Component {
   renderImagePreview = () => {
     const { imagePreviewDataURL } = this.state;
     if (imagePreviewDataURL) {
-      return <img src={imagePreviewDataURL} width={100} height={100} />;
+      return <img src={imagePreviewDataURL} className={styles.imagePreview} />;
     } else {
       return null;
     }
   };
 
   render() {
+    let uploadPicPrompt = 'Upload a picture';
+
+    if (this.state.imagePreviewDataURL) {
+      uploadPicPrompt = 'Done ✓';
+    }
+
     return (
       <div>
-        <input type="file" onChange={this.handleImageChange} />
+        <button className={styles.chooseFileButton}>
+          <label className={styles.labelText} htmlFor="imageInput">
+            {uploadPicPrompt}
+          </label>
+        </button>
+        <input
+          className={styles.inputfile}
+          type="file"
+          accept="image/*"
+          id="imageInput"
+          name="imageInput"
+          onChange={this.handleImageChange}
+        />
         {this.renderImagePreview()}
       </div>
     );

@@ -127,7 +127,7 @@ class DetailsForm extends React.Component {
             )
           }
         >
-          Submit
+          Share →
         </button>
       </div>
     );
