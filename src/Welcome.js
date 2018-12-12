@@ -9,7 +9,7 @@ class Welcome extends React.Component {
     super(props);
 
     this.state = {
-      code: 'DEFAULT (Change me)',
+      code: '',
     };
   }
 
@@ -30,6 +30,7 @@ class Welcome extends React.Component {
         <input
           className={styles.codeInput}
           type="text"
+          placeholder="Input your Piff code"
           name="code"
           value={this.state.code}
           onChange={this.handleCodeChange}

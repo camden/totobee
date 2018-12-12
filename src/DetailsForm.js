@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import { Firestore, Storage } from './firebase';
 import ImageUpload from './ImageUpload';
 
-import styles from './LogDetails.scss';
+import styles from './DetailsForm.scss';
 
 class DetailsForm extends React.Component {
   constructor(props) {
@@ -71,20 +71,26 @@ class DetailsForm extends React.Component {
       return <Redirect push to="/success" />;
     }
 
+    const locateButtonText = this.state.loading ? 'Loading...' : 'Locate me!';
+
     return (
-      <div>
-        {this.state.loading ? <div>Loading!</div> : null}
-        <h1>Where's {selectedTotem.displayName}?</h1>
-        <h2>To log your find, we need some info from you!</h2>
-        <label htmlFor="name">Your Name: </label>
+      <div className={styles.container}>
+        <h1>
+          Your Piff's name is{' '}
+          <span className={styles.piffName}>{selectedTotem.displayName}</span>.
+        </h1>
+        <label htmlFor="name">Your Name:</label>
         <input
           name="name"
           type="text"
+          placeholder="What's your name?"
           value={this.state.name}
           onChange={this.handleNameChange}
         />
         <ImageUpload onImageChange={this.handleImageChange} />
-        <button onClick={this.getLocationAndTime}>Get Location</button>
+        <button onClick={this.getLocationAndTime} disabled={this.state.loading}>
+          {locateButtonText}
+        </button>
         <div>
           Position: {position && position.latitude} x{' '}
           {position && position.longitude}
