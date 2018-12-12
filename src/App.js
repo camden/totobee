@@ -11,6 +11,7 @@ import Welcome from './Welcome';
 
 import styles from './App.scss';
 import { Firestore } from './firebase';
+import Success from './Success';
 
 class App extends React.Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class App extends React.Component {
       <div>
         <Router>
           <Switch>
-            <Route exact path="/success" render={() => <div>Success!</div>} />
+            <Route exact path="/success" component={Success} />
             <Route exact path="/" component={Welcome} />
             <Route
               path="/log"

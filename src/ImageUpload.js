@@ -45,7 +45,7 @@ class ImageUpload extends React.Component {
     }
 
     if (this.state.imagePreviewDataURL) {
-      uploadPicPrompt = 'Done ✓';
+      uploadPicPrompt = 'Looks good! ✓';
     }
 
     return (

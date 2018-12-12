@@ -37,9 +37,9 @@ class LogDetails extends React.Component {
     return imageStorageRef;
   }
 
-  uploadImageToFirebase(imageUrl) {
+  uploadImageToFirebase(imageUrl, timestamp) {
     return new Promise((resolve, reject) => {
-      return this.getImageRef(imageUrl)
+      return this.getImageRef(imageUrl, timestamp)
         .putString(imageUrl, 'data_url')
         .then(snapshot => {
           resolve(snapshot);
@@ -82,7 +82,7 @@ class LogDetails extends React.Component {
       return false;
     }
 
-    return this.uploadImageToFirebase(imageDataUrl)
+    return this.uploadImageToFirebase(imageDataUrl, timestamp)
       .then(snapshot => snapshot.ref.getDownloadURL())
       .then(imageUrl => {
         return this.uploadMetadata({
