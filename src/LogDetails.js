@@ -5,57 +5,13 @@ import QueryString from 'query-string';
 import firebase from 'firebase/app';
 import { Firestore, Storage } from './firebase';
 import ImageUpload from './ImageUpload';
-
-import styles from './LogDetails.scss';
-
-// Returns a promise
-const getVisitInfo = () => {
-  return new Promise((resolve, reject) => {
-    return navigator.geolocation.getCurrentPosition(position =>
-      resolve(position)
-    );
-  });
-};
+import DetailsForm from './DetailsForm';
 
 class LogDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      position: null,
-      timestamp: null,
-      name: '',
-      image: null,
-    };
-  }
-
   getTotemCode = () => {
     const query = this.props.location.search;
     const parsed = QueryString.parse(query);
     return parsed.code;
-  };
-
-  logVisit = () => {
-    this.setState({
-      loading: true,
-    });
-    getVisitInfo().then(info => {
-      this.setState({
-        loading: false,
-      });
-      this.setState(state => {
-        return {
-          ...state,
-          position: info.coords,
-          timestamp: info.timestamp,
-        };
-      });
-    });
-  };
-
-  handleNameChange = event => {
-    const name = event.target.value;
-    this.setState({ name });
   };
 
   getImageRef(imageUrl) {
@@ -76,11 +32,12 @@ class LogDetails extends React.Component {
     });
   }
 
-  uploadMetadata({ name, position, timestamp, imageUrl }) {
+  uploadMetadata({ name, position, timestamp, imageUrl, totemCode }) {
     return Firestore.collection('visits')
       .add({
         imageUrl,
         name,
+        totemCode,
         location: new firebase.firestore.GeoPoint(
           position.latitude,
           position.longitude
@@ -97,19 +54,19 @@ class LogDetails extends React.Component {
       });
   }
 
-  submitToFirebase = () => {
-    // Add a second document with a generated ID.
-    const { name, position, timestamp, image } = this.state;
-    if (!name || !position || !timestamp || !image) {
+  submitToFirebase = ({
+    name,
+    position,
+    timestamp,
+    imageDataUrl,
+    totemCode,
+  }) => {
+    if (!name || !position || !timestamp || !imageDataUrl) {
       alert('Need all fields to be filled out!');
       return false;
     }
 
-    this.setState({
-      loading: true,
-    });
-
-    this.uploadImageToFirebase(image)
+    return this.uploadImageToFirebase(imageDataUrl)
       .then(snapshot => snapshot.ref.getDownloadURL())
       .then(imageUrl => {
         return this.uploadMetadata({
@@ -117,24 +74,12 @@ class LogDetails extends React.Component {
           position,
           timestamp,
           imageUrl,
-        });
-      })
-      .finally(() => {
-        this.setState({
-          loading: false,
+          totemCode,
         });
       });
   };
 
-  handleImageChange = imageURL => {
-    this.setState(state => ({
-      ...state,
-      image: imageURL,
-    }));
-  };
-
   render() {
-    const { position } = this.state;
     const { totems } = this.props;
     const selectedTotem = totems.find(t => t.code === this.getTotemCode());
 
@@ -147,39 +92,10 @@ class LogDetails extends React.Component {
     }
 
     return (
-      <div>
-        <h1 className={styles.title}>Where's {selectedTotem.displayName}?</h1>
-        <h2>To log your find, we need some info from you!</h2>
-        {this.state.loading ? <div>LOADING</div> : null}
-        <label htmlFor="name">Your Name: </label>
-        <input
-          name="name"
-          type="text"
-          value={this.state.name}
-          onChange={this.handleNameChange}
-        />
-        <ImageUpload onImageChange={this.handleImageChange} />
-        <button onClick={this.logVisit}>Get Location</button>
-        <div>
-          Position: {position && position.latitude} x{' '}
-          {position && position.longitude}
-        </div>
-        <div>Timestamp: {this.state.timestamp}</div>
-
-        <button
-          onClick={this.submitToFirebase}
-          disabled={
-            !(
-              this.state.position &&
-              this.state.timestamp &&
-              this.state.name &&
-              this.state.image
-            )
-          }
-        >
-          Submit
-        </button>
-      </div>
+      <DetailsForm
+        selectedTotem={selectedTotem}
+        submitToFirebase={this.submitToFirebase}
+      />
     );
   }
 }

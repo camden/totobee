@@ -36,6 +36,7 @@ class App extends React.Component {
       <div>
         <Router>
           <Switch>
+            <Route exact path="/success" render={() => <div>Success!</div>} />
             <Route exact path="/" component={Welcome} />
             <Route
               path="/log"

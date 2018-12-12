@@ -29,7 +29,7 @@ class ImageUpload extends React.Component {
   renderImagePreview = () => {
     const { imagePreviewDataURL } = this.state;
     if (imagePreviewDataURL) {
-      return <img src={imagePreviewDataURL} />;
+      return <img src={imagePreviewDataURL} width={100} height={100} />;
     } else {
       return null;
     }
