@@ -136,7 +136,7 @@ class LogDetails extends React.Component {
   render() {
     const { position } = this.state;
     const { totems } = this.props;
-    const selectedTotem = totems.find(t => t.unique_id === this.getTotemCode());
+    const selectedTotem = totems.find(t => t.code === this.getTotemCode());
 
     if (!selectedTotem) {
       return (
@@ -148,7 +148,7 @@ class LogDetails extends React.Component {
 
     return (
       <div>
-        <h1 className={styles.title}>Where's {selectedTotem.display_name}?</h1>
+        <h1 className={styles.title}>Where's {selectedTotem.displayName}?</h1>
         <h2>To log your find, we need some info from you!</h2>
         {this.state.loading ? <div>LOADING</div> : null}
         <label htmlFor="name">Your Name: </label>
