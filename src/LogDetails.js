@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import QueryString from 'query-string';
 import firebase from 'firebase/app';
 import { Firestore, Storage } from './firebase';
 import ImageUpload from './ImageUpload';
@@ -25,6 +28,12 @@ class LogDetails extends React.Component {
       image: null,
     };
   }
+
+  getTotemCode = () => {
+    const query = this.props.location.search;
+    const parsed = QueryString.parse(query);
+    return parsed.code;
+  };
 
   logVisit = () => {
     this.setState({
@@ -126,9 +135,20 @@ class LogDetails extends React.Component {
 
   render() {
     const { position } = this.state;
+    const { totems } = this.props;
+    const selectedTotem = totems.find(t => t.unique_id === this.getTotemCode());
+
+    if (!selectedTotem) {
+      return (
+        <div>
+          <h1>Could not find a totem with the code {this.getTotemCode()}</h1>
+        </div>
+      );
+    }
+
     return (
       <div>
-        <h1 className={styles.title}>Where's Caesar?</h1>
+        <h1 className={styles.title}>Where's {selectedTotem.display_name}?</h1>
         <h2>To log your find, we need some info from you!</h2>
         {this.state.loading ? <div>LOADING</div> : null}
         <label htmlFor="name">Your Name: </label>
@@ -164,4 +184,4 @@ class LogDetails extends React.Component {
   }
 }
 
-export default LogDetails;
+export default withRouter(LogDetails);

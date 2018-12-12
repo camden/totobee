@@ -37,7 +37,10 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Welcome} />
-            <Route path="/log" component={LogDetails} />
+            <Route
+              path="/log"
+              render={() => <LogDetails totems={this.state.totems} />}
+            />
             <Redirect to="/" />
           </Switch>
         </Router>
