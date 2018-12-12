@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+}
+
+p,
+body {
+  font-family: 'Crimson Text';
+}
+
+button,
+input {
+  font-family: 'Work Sans';
+}
+
+label {
+  font-style: oblique;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  font-family: 'Crimson Text';
+  font-weight: bold;
+}
