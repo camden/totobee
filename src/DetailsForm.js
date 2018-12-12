@@ -7,17 +7,20 @@ import { Firestore, Storage } from './firebase';
 import ImageUpload from './ImageUpload';
 
 import styles from './DetailsForm.scss';
+import SignIn from './SignIn';
 
 class DetailsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoading: false,
+      isSubmitting: false,
       position: null,
       timestamp: null,
       name: '',
       image: null,
       isDone: false,
+      isAuthenticated: false,
     };
   }
 
@@ -65,6 +68,9 @@ class DetailsForm extends React.Component {
   submitForm = () => {
     const { name, position, timestamp, image: imageDataUrl } = this.state;
     const totemCode = this.props.selectedTotem.code;
+    this.setState({
+      isSubmitting: true,
+    });
     this.props
       .submitToFirebase({
         name,
@@ -73,15 +79,33 @@ class DetailsForm extends React.Component {
         imageDataUrl,
         totemCode,
       })
-      .then(() => this.setState({ isDone: true }));
+      .then(() => this.setState({ isDone: true, isSubmitting: false }));
+  };
+
+  handleSignInSuccess = () => {
+    this.setState({
+      isAuthenticated: true,
+    });
   };
 
   render() {
-    const { position, isDone, isLoading } = this.state;
+    const {
+      position,
+      isDone,
+      isLoading,
+      isSubmitting,
+      isAuthenticated,
+    } = this.state;
     const { selectedTotem } = this.props;
 
     if (isDone) {
       return <Redirect push to="/success" />;
+    }
+
+    let shareButtonText = 'Share →';
+
+    if (isSubmitting) {
+      shareButtonText = 'Loading...';
     }
 
     let locateButtonText = 'Locate me!';
@@ -108,7 +132,16 @@ class DetailsForm extends React.Component {
           value={this.state.name}
           onChange={this.handleNameChange}
         />
-        <ImageUpload onImageChange={this.handleImageChange} />
+        {this.state.isAuthenticated ? null : (
+          <div style={{ marginTop: '30px' }}>
+            <label>Sign in with Google to upload pictures.</label>
+            <SignIn onSignInSuccess={this.handleSignInSuccess} />
+          </div>
+        )}
+        <ImageUpload
+          onImageChange={this.handleImageChange}
+          isAuthenticated={isAuthenticated}
+        />
         <button
           onClick={this.getLocationAndTime}
           disabled={this.state.isLoading || position}
@@ -119,6 +152,7 @@ class DetailsForm extends React.Component {
         <button
           onClick={this.submitForm}
           disabled={
+            isSubmitting ||
             !(
               this.state.position &&
               this.state.timestamp &&
@@ -127,7 +161,7 @@ class DetailsForm extends React.Component {
             )
           }
         >
-          Share →
+          {shareButtonText}
         </button>
       </div>
     );

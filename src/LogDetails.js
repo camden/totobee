@@ -14,9 +14,25 @@ class LogDetails extends React.Component {
     return parsed.code;
   };
 
-  getImageRef(imageUrl) {
-    const version = 'caesar';
-    const imageName = 'img2.jpg';
+  hashString = str => {
+    let hash = 0,
+      i,
+      chr;
+
+    if (str.length === 0) return hash;
+    for (i = 0; i < this.length; i++) {
+      chr = str.charCodeAt(i);
+      hash = (hash << 5) - hash + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+  };
+
+  getImageRef(imageUrl, timestamp) {
+    const version = this.getTotemCode();
+    const imageName = `img-${version}-${this.hashString(
+      String(timestamp)
+    )}.jpg`;
     const imageStorageRef = Storage.child(`images/${version}/${imageName}`);
     return imageStorageRef;
   }

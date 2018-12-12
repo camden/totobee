@@ -9,11 +9,40 @@
 }
 
 .chooseFileButton {
+  font-family: 'Work Sans';
   width: 100%;
-}
-
-.labelText {
   font-style: normal;
+  display: inline-block;
+  border: none;
+  padding: 15px 40px;
+  margin: 0;
+  margin-top: 30px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-align: center;
+  transition: all 250ms ease-in-out;
+  background: #8e2de2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #4a00e0,
+    #8e2de2
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #4a00e0,
+    #8e2de2
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  box-shadow: 0px 0px 16px 0px rgba(41, 23, 131, 0.4);
+
+  color: white;
+  border-radius: 60px;
+  font-weight: bold;
+
+  &:not(.buttonDone):disabled {
+    background: grey;
+  }
 }
 
 .imagePreview {
