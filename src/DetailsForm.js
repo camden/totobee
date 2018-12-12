@@ -12,7 +12,7 @@ class DetailsForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
+      isLoading: false,
       position: null,
       timestamp: null,
       name: '',
@@ -35,16 +35,29 @@ class DetailsForm extends React.Component {
 
   getLocationAndTime = () => {
     return new Promise((resolve, reject) => {
-      this.setState({ loading: true });
-      return navigator.geolocation.getCurrentPosition(info =>
-        this.setState(state => {
-          return {
-            ...state,
-            loading: false,
-            position: info.coords,
-            timestamp: info.timestamp,
-          };
-        })
+      this.setState({ isLoading: true });
+      return navigator.geolocation.getCurrentPosition(
+        info =>
+          this.setState(state => {
+            return {
+              ...state,
+              isLoading: false,
+              position: info.coords,
+              timestamp: info.timestamp,
+            };
+          }),
+        error => {
+          alert(
+            "Error: you haven't granted us permission to use your location."
+          );
+          this.setState(state => {
+            return {
+              ...state,
+              isLoading: false,
+            };
+          });
+        },
+        { timeout: 10000 }
       );
     });
   };
@@ -64,14 +77,22 @@ class DetailsForm extends React.Component {
   };
 
   render() {
-    const { position, isDone } = this.state;
+    const { position, isDone, isLoading } = this.state;
     const { selectedTotem } = this.props;
 
     if (isDone) {
       return <Redirect push to="/success" />;
     }
 
-    const locateButtonText = this.state.loading ? 'Loading...' : 'Locate me!';
+    let locateButtonText = 'Locate me!';
+
+    if (isLoading) {
+      locateButtonText = 'Loading...';
+    }
+
+    if (position) {
+      locateButtonText = 'Found you! ✓';
+    }
 
     return (
       <div className={styles.container}>
@@ -88,15 +109,13 @@ class DetailsForm extends React.Component {
           onChange={this.handleNameChange}
         />
         <ImageUpload onImageChange={this.handleImageChange} />
-        <button onClick={this.getLocationAndTime} disabled={this.state.loading}>
+        <button
+          onClick={this.getLocationAndTime}
+          disabled={this.state.isLoading || position}
+          className={position && styles.buttonDone}
+        >
           {locateButtonText}
         </button>
-        <div>
-          Position: {position && position.latitude} x{' '}
-          {position && position.longitude}
-        </div>
-        <div>Timestamp: {this.state.timestamp}</div>
-
         <button
           onClick={this.submitForm}
           disabled={
