@@ -38,7 +38,11 @@ class App extends React.Component {
       <div>
         <Router>
           <Switch>
-            <Route exact path="/locations" component={Locations} />
+            <Route
+              exact
+              path="/locations"
+              render={() => <Locations totems={this.state.totems} />}
+            />
             <Route exact path="/success" component={Success} />
             <Route exact path="/" component={Welcome} />
             <Route

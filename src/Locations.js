@@ -56,12 +56,21 @@ class Locations extends React.Component {
     return totems;
   };
 
+  getTotemDisplayName = totemCode => {
+    const totem = this.props.totems.find(t => t.code === totemCode);
+    if (totem) {
+      return totem.displayName;
+    } else {
+      return totemCode;
+    }
+  };
+
   render() {
     return (
       <div className={styles.container}>
         {Object.entries(this.formattedData()).map(([totemCode, visits]) => (
           <>
-            <h2>{totemCode}</h2>
+            <h2>{this.getTotemDisplayName(totemCode)}</h2>
             <ol>
               {visits.map(visit => (
                 <li>
