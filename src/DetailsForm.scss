@@ -3,18 +3,8 @@
   padding: 16px;
   padding-bottom: 24px;
   flex-direction: column;
-
-  background: #aaffa9; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #11ffbd,
-    #aaffa9
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #11ffbd,
-    #aaffa9
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100%;
+  width: 100%;
 }
 
 .title {
@@ -39,10 +29,12 @@ input[type='text'] {
 }
 
 textarea {
-  height: 2em;
+  height: 5em;
+  width: 100%;
 }
 
-button {
+.formButton {
+  width: 100%;
   display: inline-block;
   border: none;
   padding: 15px 40px;

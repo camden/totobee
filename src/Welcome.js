@@ -47,7 +47,10 @@ class Welcome extends React.Component {
         />
         <div>
           <Link to={linkTo}>
-            <button className={styles.ctaButton} disabled={!this.state.code}>
+            <button
+              className={styles.continueButton}
+              disabled={!this.state.code}
+            >
               Continue
             </button>
           </Link>

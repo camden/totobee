@@ -7,7 +7,6 @@ import { Firestore, Storage } from './firebase';
 import ImageUpload from './ImageUpload';
 
 import styles from './DetailsForm.scss';
-import SignIn from './SignIn';
 
 class DetailsForm extends React.Component {
   constructor(props) {
@@ -140,15 +139,17 @@ class DetailsForm extends React.Component {
           Send a message to the next person who finds{' '}
           {selectedTotem.displayName} the Totobee!
         </label>
-        <textarea
-          id="message"
-          name="message"
-          type="text"
-          rows={4}
-          placeholder="Tell a story about your Totobee, or just say hi! Good vibes only :)"
-          value={this.state.message}
-          onChange={this.handleMessageChange}
-        />
+        <div>
+          <textarea
+            id="message"
+            name="message"
+            type="text"
+            rows={4}
+            placeholder="Tell a story about your Totobee, or just say hi! Good vibes only :)"
+            value={this.state.message}
+            onChange={this.handleMessageChange}
+          />
+        </div>
         <label>
           Snap a picture of {selectedTotem.displayName} the Totobee in it's new
           temporary dwelling!
@@ -158,27 +159,32 @@ class DetailsForm extends React.Component {
           We use your location to keep track of {selectedTotem.displayName} the
           Totobee's journey!
         </label>
-        <button
-          onClick={this.getLocationAndTime}
-          disabled={this.state.isLoading || position}
-          className={position && styles.buttonDone}
-        >
-          {locateButtonText}
-        </button>
-        <button
-          onClick={this.submitForm}
-          disabled={
-            isSubmitting ||
-            !(
-              this.state.position &&
-              this.state.timestamp &&
-              this.state.name &&
-              this.state.image
-            )
-          }
-        >
-          {shareButtonText}
-        </button>
+        <div>
+          <button
+            onClick={this.getLocationAndTime}
+            disabled={this.state.isLoading || position}
+            className={`${styles.formButton} ${position && styles.buttonDone}`}
+          >
+            {locateButtonText}
+          </button>
+        </div>
+        <div>
+          <button
+            className={styles.formButton}
+            onClick={this.submitForm}
+            disabled={
+              isSubmitting ||
+              !(
+                this.state.position &&
+                this.state.timestamp &&
+                this.state.name &&
+                this.state.image
+              )
+            }
+          >
+            {shareButtonText}
+          </button>
+        </div>
       </div>
     );
   }
