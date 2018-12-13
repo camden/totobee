@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import QueryString from 'query-string';
 import firebase from 'firebase/app';
-import { Firestore, Storage } from './firebase';
+import { Firestore, Storage, Firebase } from './firebase';
 import ImageUpload from './ImageUpload';
 import DetailsForm from './DetailsForm';
 
 class LogDetails extends React.Component {
+  componentDidMount() {
+    Firebase.auth().signInAnonymously();
+  }
+
   getTotemCode = () => {
     const query = this.props.location.search;
     const parsed = QueryString.parse(query);
@@ -42,10 +46,11 @@ class LogDetails extends React.Component {
     });
   }
 
-  uploadMetadata({ name, position, timestamp, imageUrl, totemCode }) {
+  uploadMetadata({ name, position, message, timestamp, imageUrl, totemCode }) {
     return Firestore.collection('visits')
       .add({
         imageUrl,
+        message,
         name,
         totemCode,
         location: new firebase.firestore.GeoPoint(
@@ -66,6 +71,7 @@ class LogDetails extends React.Component {
 
   submitToFirebase = ({
     name,
+    message,
     position,
     timestamp,
     imageDataUrl,
@@ -81,6 +87,7 @@ class LogDetails extends React.Component {
       .then(imageUrl => {
         return this.uploadMetadata({
           name,
+          message,
           position,
           timestamp,
           imageUrl,

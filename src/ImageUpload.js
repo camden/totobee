@@ -39,22 +39,19 @@ class ImageUpload extends React.Component {
 
   render() {
     let uploadPicPrompt = 'Upload a picture';
-
-    if (!this.props.isAuthenticated) {
-      uploadPicPrompt = 'Sign in with Google to upload a picture';
-    }
+    let uploadButtonClassNames = styles.chooseFileButton;
 
     if (this.state.imagePreviewDataURL) {
       uploadPicPrompt = 'Looks good! ✓';
+      uploadButtonClassNames += ' ' + styles.chooseFileButtonDone;
     }
 
     return (
       <div>
-        <label className={styles.chooseFileButton} htmlFor="imageInput">
+        <label className={uploadButtonClassNames} htmlFor="imageInput">
           {uploadPicPrompt}
         </label>
         <input
-          disabled={!this.props.isAuthenticated}
           className={styles.inputfile}
           type="file"
           accept="image/*"

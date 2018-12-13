@@ -16,6 +16,7 @@ const parseInfo = data => {
   return {
     totemCode: data.totemCode,
     name: data.name,
+    message: data.message,
     city,
     imageUrl: data.imageUrl,
   };
@@ -65,8 +66,9 @@ class Locations extends React.Component {
               {visits.map(visit => (
                 <li>
                   <a href={visit.imageUrl} target="_blank">
-                    {visit.city} by {visit.name}
+                    {visit.name} from {visit.city}
                   </a>
+                  {visit.message && <blockquote>{visit.message}</blockquote>}
                 </li>
               ))}
             </ol>

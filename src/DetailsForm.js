@@ -18,11 +18,16 @@ class DetailsForm extends React.Component {
       position: null,
       timestamp: null,
       name: '',
+      message: '',
       image: null,
       isDone: false,
-      isAuthenticated: false,
     };
   }
+
+  handleMessageChange = event => {
+    const message = event.target.value;
+    this.setState({ message });
+  };
 
   handleNameChange = event => {
     const name = event.target.value;
@@ -66,7 +71,13 @@ class DetailsForm extends React.Component {
   };
 
   submitForm = () => {
-    const { name, position, timestamp, image: imageDataUrl } = this.state;
+    const {
+      name,
+      message,
+      position,
+      timestamp,
+      image: imageDataUrl,
+    } = this.state;
     const totemCode = this.props.selectedTotem.code;
     this.setState({
       isSubmitting: true,
@@ -74,6 +85,7 @@ class DetailsForm extends React.Component {
     this.props
       .submitToFirebase({
         name,
+        message,
         position,
         timestamp,
         imageDataUrl,
@@ -82,20 +94,8 @@ class DetailsForm extends React.Component {
       .then(() => this.setState({ isDone: true, isSubmitting: false }));
   };
 
-  handleSignInSuccess = () => {
-    this.setState({
-      isAuthenticated: true,
-    });
-  };
-
   render() {
-    const {
-      position,
-      isDone,
-      isLoading,
-      isSubmitting,
-      isAuthenticated,
-    } = this.state;
+    const { position, isDone, isLoading, isSubmitting } = this.state;
     const { selectedTotem } = this.props;
 
     if (isDone) {
@@ -124,24 +124,28 @@ class DetailsForm extends React.Component {
           Your Piff's name is{' '}
           <span className={styles.piffName}>{selectedTotem.displayName}</span>.
         </h1>
-        <label htmlFor="name">Your Name:</label>
+        <label htmlFor="name">Your Name (required):</label>
         <input
+          id="name"
           name="name"
           type="text"
           placeholder="What's your name?"
           value={this.state.name}
           onChange={this.handleNameChange}
         />
-        {this.state.isAuthenticated ? null : (
-          <div style={{ marginTop: '30px' }}>
-            <label>Sign in with Google to upload pictures.</label>
-            <SignIn onSignInSuccess={this.handleSignInSuccess} />
-          </div>
-        )}
-        <ImageUpload
-          onImageChange={this.handleImageChange}
-          isAuthenticated={isAuthenticated}
+        <label htmlFor="message">
+          Send a message to the next person who finds{' '}
+          {selectedTotem.displayName} the Piff!
+        </label>
+        <input
+          id="message"
+          name="message"
+          type="text"
+          placeholder="Say something nice!"
+          value={this.state.message}
+          onChange={this.handleMessageChange}
         />
+        <ImageUpload onImageChange={this.handleImageChange} />
         <button
           onClick={this.getLocationAndTime}
           disabled={this.state.isLoading || position}
