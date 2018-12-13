@@ -151,7 +151,7 @@ class DetailsForm extends React.Component {
           />
         </div>
         <label>
-          Snap a picture of {selectedTotem.displayName} the Totobee in it's new
+          Snap a picture of {selectedTotem.displayName} the Totobee in its new
           temporary dwelling!
         </label>
         <ImageUpload onImageChange={this.handleImageChange} />
