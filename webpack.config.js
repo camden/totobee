@@ -1,18 +1,19 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   entry: './src/index.js',
   output: {
     filename: '[name].[hash].js',
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
     hot: true,
+    historyApiFallback: true,
     contentBase: path.join(__dirname, 'dist'),
   },
   module: {
@@ -57,9 +58,16 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        cache: true,
+        parallel: true,
+      }),
+    ],
+  },
   plugins: [
     new MiniCssExtractPlugin(),
-    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),

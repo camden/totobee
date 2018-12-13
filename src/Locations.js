@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Firestore, Firebase } from './firebase';
-import cities from 'cities';
 
 import styles from './Locations.scss';
 
@@ -16,22 +15,19 @@ const parseInfo = data => {
 };
 
 const addCityData = data => {
-  return data;
-  const { latitude, longitude } = data.location;
-  const nearby = cities.gps_lookup(latitude, longitude);
-  let city = 'City Unknown';
-  if (nearby) {
-    city = nearby.city;
-  }
-
-  return null;
+  const findCities = Firebase.functions().httpsCallable('findCities');
+  return findCities({ positions: data.map(d => d.location) }).then(result => {
+    return result && result.data && result.data.cities;
+  });
 };
 
 class Locations extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       visits: [],
+      cities: [],
     };
   }
 
@@ -39,24 +35,43 @@ class Locations extends React.Component {
     Firestore.collection('visits')
       .get()
       .then(snapshot => {
+        const visits = snapshot.docs.map(d => d.data()).map(parseInfo);
         this.setState(state => ({
           ...state,
-          visits: addCityData(snapshot.docs.map(d => d.data()).map(parseInfo)),
+          visits,
+        }));
+        return visits;
+      })
+      .then(visits => {
+        return addCityData(visits);
+      })
+      .then(cities => {
+        this.setState(state => ({
+          ...state,
+          cities,
+          isLoading: false,
         }));
       });
   }
 
   formattedData = () => {
     const visits = this.state.visits;
+    const cities = this.state.cities;
     const totems = {};
     for (let i = 0; i < visits.length; i++) {
-      const item = visits[i];
-      const code = item.totemCode;
+      const originalVisitInfo = visits[i];
+      const cityInfo = cities[i];
+      const code = originalVisitInfo.totemCode;
       if (!totems[code]) {
         totems[code] = [];
       }
 
-      totems[code].push(item);
+      const updatedVisitInfo = {
+        ...originalVisitInfo,
+        city: cityInfo.city,
+      };
+
+      totems[code].push(updatedVisitInfo);
     }
     return totems;
   };
@@ -71,6 +86,14 @@ class Locations extends React.Component {
   };
 
   render() {
+    if (this.state.isLoading) {
+      return (
+        <div className={styles.container}>
+          <h2>Loading...</h2>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.container}>
         {Object.entries(this.formattedData()).map(([totemCode, visits]) => (

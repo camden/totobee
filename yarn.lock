@@ -871,12 +871,6 @@ ajv@^6.1.0, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-all-the-cities@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/all-the-cities/-/all-the-cities-2.0.1.tgz#ceb5cbb661bdb896edabc36ee3cb14454206d929"
-  dependencies:
-    pbf "^3.0.5"
-
 alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
@@ -1418,13 +1412,6 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
-
-cities@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/cities/-/cities-2.0.0.tgz#c22e35fff439f97dae2858eb67d7497b2f00e89b"
-  dependencies:
-    haversine "^1.0.0"
-    lodash "^4.17.11"
 
 class-utils@^0.3.5:
   version "0.3.6"
@@ -2611,12 +2598,6 @@ generic-names@^1.0.3:
   dependencies:
     loader-utils "^0.2.16"
 
-geokdbush@^1.0.2:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/geokdbush/-/geokdbush-1.1.0.tgz#aa5e8e7953a6594b40a85fbdb61059af0f51468f"
-  dependencies:
-    tinyqueue "^1.2.2"
-
 get-caller-file@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
@@ -2787,10 +2768,6 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-haversine@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/haversine/-/haversine-1.1.0.tgz#0b2380cb6d9c10e9f1224fc2b513cc61018d5ff7"
-
 he@1.2.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -2955,7 +2932,7 @@ icss-utils@^4.0.0:
   dependencies:
     postcss "^7.0.5"
 
-ieee754@^1.1.4, ieee754@^1.1.6:
+ieee754@^1.1.4:
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.12.tgz#50bf24e5b9c8bb98af4964c941cdb0918da7b60b"
 
@@ -3387,10 +3364,6 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-kdbush@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npmjs.org/kdbush/-/kdbush-1.0.1.tgz#3cbd03e9dead9c0f6f66ccdb96450e5cecc640e0"
-
 killable@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -3794,14 +3767,6 @@ nanomatch@^1.2.9:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
-
-nearby-cities@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/nearby-cities/-/nearby-cities-1.1.0.tgz#20a051d61b4b45eaad09b7df74bd3438703599b4"
-  dependencies:
-    all-the-cities "^2.0.0"
-    geokdbush "^1.0.2"
-    kdbush "^1.0.1"
 
 needle@^2.2.1:
   version "2.2.4"
@@ -4283,13 +4248,6 @@ path-type@^1.0.0:
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
 
-pbf@^3.0.5:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/pbf/-/pbf-3.1.0.tgz#f70004badcb281761eabb1e76c92f179f08189e9"
-  dependencies:
-    ieee754 "^1.1.6"
-    resolve-protobuf-schema "^2.0.0"
-
 pbkdf2@^3.0.3:
   version "3.0.17"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.17.tgz#976c206530617b14ebb32114239f7b09336e93a6"
@@ -4735,10 +4693,6 @@ protobufjs@^5.0.3:
     glob "^7.0.5"
     yargs "^3.10.0"
 
-protocol-buffers-schema@^3.3.1:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/protocol-buffers-schema/-/protocol-buffers-schema-3.3.2.tgz#00434f608b4e8df54c59e070efeefc37fb4bb859"
-
 proxy-addr@~2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/proxy-addr/-/proxy-addr-2.0.4.tgz#ecfc733bf22ff8c6f407fa275327b9ab67e48b93"
@@ -5133,12 +5087,6 @@ resolve-from@^3.0.0:
 resolve-pathname@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-2.2.0.tgz#7e9ae21ed815fd63ab189adeee64dc831eefa879"
-
-resolve-protobuf-schema@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/resolve-protobuf-schema/-/resolve-protobuf-schema-2.1.0.tgz#9ca9a9e69cf192bbdaf1006ec1973948aa4a3758"
-  dependencies:
-    protocol-buffers-schema "^3.3.1"
 
 resolve-url@^0.2.1:
   version "0.2.1"
@@ -5786,10 +5734,6 @@ timers-browserify@^2.0.4:
 timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
-
-tinyqueue@^1.2.2:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-1.2.3.tgz#b6a61de23060584da29f82362e45df1ec7353f3d"
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
