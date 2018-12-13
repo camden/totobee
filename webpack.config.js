@@ -5,10 +5,15 @@ var BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
 module.exports = {
-  entry: './index.js',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  entry: './src/index.js',
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  devServer: {
+    hot: true,
+    contentBase: path.join(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -20,21 +25,43 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/,
+        use: [
+          process.env.NODE_ENV !== 'production'
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+            },
+          },
+          'postcss-loader',
+        ],
+      },
+      {
         test: /\.scss$/,
         use: [
           process.env.NODE_ENV !== 'production'
             ? 'style-loader'
             : MiniCssExtractPlugin.loader,
-          'css-loader', // translates CSS into CommonJS
-          'sass-loader', // compiles Sass to CSS, using Node Sass by default
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]___[hash:base64:5]',
+            },
+          },
+          'sass-loader',
         ],
       },
     ],
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    new MiniCssExtractPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html',
+      template: './src/index.html',
     }),
   ],
 };

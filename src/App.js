@@ -9,10 +9,11 @@ import {
 import LogDetails from './LogDetails';
 import Welcome from './Welcome';
 
-import styles from './App.scss';
 import { Firestore } from './firebase';
 import Success from './Success';
 import Locations from './Locations';
+
+import styles from './App.scss';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ height: '100%', minHeight: '100%' }}>
         <Router>
           <Switch>
             <Route

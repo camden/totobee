@@ -1,11 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Firestore } from './firebase';
+import { Firestore, Firebase } from './firebase';
 import cities from 'cities';
 
 import styles from './Locations.scss';
 
 const parseInfo = data => {
+  return {
+    totemCode: data.totemCode,
+    name: data.name,
+    message: data.message,
+    location: data.location,
+    imageUrl: data.imageUrl,
+  };
+};
+
+const addCityData = data => {
+  return data;
   const { latitude, longitude } = data.location;
   const nearby = cities.gps_lookup(latitude, longitude);
   let city = 'City Unknown';
@@ -13,13 +24,7 @@ const parseInfo = data => {
     city = nearby.city;
   }
 
-  return {
-    totemCode: data.totemCode,
-    name: data.name,
-    message: data.message,
-    city,
-    imageUrl: data.imageUrl,
-  };
+  return null;
 };
 
 class Locations extends React.Component {
@@ -36,7 +41,7 @@ class Locations extends React.Component {
       .then(snapshot => {
         this.setState(state => ({
           ...state,
-          visits: snapshot.docs.map(d => d.data()).map(parseInfo),
+          visits: addCityData(snapshot.docs.map(d => d.data()).map(parseInfo)),
         }));
       });
   }
