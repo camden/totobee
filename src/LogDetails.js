@@ -101,6 +101,10 @@ class LogDetails extends React.Component {
     const selectedTotem = totems.find(t => t.code === this.getTotemCode());
 
     if (!selectedTotem) {
+      if (totems.length == 0) {
+        return null;
+      }
+
       return (
         <div>
           <h1>Could not find a totem with the code {this.getTotemCode()}</h1>
