@@ -120,10 +120,13 @@ class DetailsForm extends React.Component {
 
     return (
       <div className={styles.container}>
-        <h1>
-          Your Piff's name is{' '}
-          <span className={styles.piffName}>{selectedTotem.displayName}</span>.
-        </h1>
+        <h2 className={styles.title}>
+          Your Totobee's name is{' '}
+          <span className={styles.totobeeName}>
+            {selectedTotem.displayName}
+          </span>
+          .
+        </h2>
         <label htmlFor="name">Your Name (required):</label>
         <input
           id="name"
@@ -135,17 +138,25 @@ class DetailsForm extends React.Component {
         />
         <label htmlFor="message">
           Send a message to the next person who finds{' '}
-          {selectedTotem.displayName} the Piff!
+          {selectedTotem.displayName} the Totobee!
         </label>
-        <input
+        <textarea
           id="message"
           name="message"
           type="text"
-          placeholder="Say something nice!"
+          placeholder="Tell a story about your Totobee, or just say hi! Good vibes only :)"
           value={this.state.message}
           onChange={this.handleMessageChange}
         />
+        <label>
+          Snap a picture of {selectedTotem.displayName} the Totobee in it's new
+          temporary dwelling!
+        </label>
         <ImageUpload onImageChange={this.handleImageChange} />
+        <label>
+          We use your location to keep track of {selectedTotem.displayName} the
+          Totobee's journey!
+        </label>
         <button
           onClick={this.getLocationAndTime}
           disabled={this.state.isLoading || position}

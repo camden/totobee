@@ -23,14 +23,24 @@ class Welcome extends React.Component {
     const linkTo = `/log?code=${this.state.code}`;
     return (
       <div className={styles.container}>
-        <h1 className={styles.title}>Say hi to Piff.</h1>
+        <h1 className={styles.title}>Say hi to Totobee.</h1>
+        <p>
+          A Totobee (a play on{' '}
+          <span style={{ fontStyle: 'oblique' }}>Temporary Travel Buddy</span>)
+          is a stationary nomad. Totobees hop from place to place with the help
+          of people like you!
+        </p>
+        <p>
+          Now, it's <span className={styles.emphasis}>your</span> turn to bring
+          your Totobee somewhere new.
+        </p>
         <label className={styles.inputLabel} htmlFor="code">
-          Enter your Piff's unique code:
+          Enter your Totobee's unique code:
         </label>
         <input
           className={styles.codeInput}
           type="text"
-          placeholder="Input your Piff code"
+          placeholder="Input your Totobee's code"
           name="code"
           value={this.state.code}
           onChange={this.handleCodeChange}

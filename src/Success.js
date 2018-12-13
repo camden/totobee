@@ -7,8 +7,10 @@ const Success = () => {
   return (
     <div className={styles.container}>
       <h1>Success!</h1>
-      <p>Your Piff has been logged successfully.</p>
-      <p>Now, put your Piff somewhere so another lucky person can find it!</p>
+      <p>Your Totobee has been logged successfully.</p>
+      <p>
+        Now, put your Totobee somewhere so another lucky person can find it!
+      </p>
     </div>
   );
 };

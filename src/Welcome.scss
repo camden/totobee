@@ -23,10 +23,15 @@
 
 .title {
   font-size: 3rem;
+  line-height: 1.05;
+}
+
+.emphasis {
+  font-style: oblique;
 }
 
 .inputLabel {
-  margin-left: 3px;
+  margin-top: 10px;
 }
 
 .codeInput {
