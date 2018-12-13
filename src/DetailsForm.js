@@ -94,8 +94,8 @@ class DetailsForm extends React.Component {
   };
 
   render() {
-    const { position, isDone, isLoading, isSubmitting } = this.state;
     const { selectedTotem } = this.props;
+    const { position, isDone, isLoading, isSubmitting } = this.state;
 
     if (isDone) {
       return <Redirect push to="/success" />;

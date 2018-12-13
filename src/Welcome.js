@@ -41,7 +41,7 @@ class Welcome extends React.Component {
           className={styles.codeInput}
           type="text"
           placeholder="Input your Totobee's code"
-          name="code"
+          id="code"
           value={this.state.code}
           onChange={this.handleCodeChange}
         />
