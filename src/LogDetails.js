@@ -14,18 +14,11 @@ class LogDetails extends React.Component {
     return parsed.code;
   };
 
-  hashString = str => {
-    let hash = 0,
-      i,
-      chr;
-
-    if (str.length === 0) return hash;
-    for (i = 0; i < this.length; i++) {
-      chr = str.charCodeAt(i);
-      hash = (hash << 5) - hash + chr;
-      hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
+  hashString = s => {
+    // https://gist.github.com/iperelivskiy/4110988
+    for (var i = 0, h = 1; i < s.length; i++)
+      h = Math.imul((h + s.charCodeAt(i)) | 0, 2654435761);
+    return (h ^ (h >>> 17)) >>> 0;
   };
 
   getImageRef(imageUrl, timestamp) {
@@ -33,6 +26,7 @@ class LogDetails extends React.Component {
     const imageName = `img-${version}-${this.hashString(
       String(timestamp)
     )}.jpg`;
+    debugger;
     const imageStorageRef = Storage.child(`images/${version}/${imageName}`);
     return imageStorageRef;
   }
