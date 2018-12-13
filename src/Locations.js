@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Firestore } from './firebase';
 import cities from 'cities';
 
-import styles from './Success.scss';
+import styles from './Locations.scss';
 
 const parseInfo = data => {
   const { latitude, longitude } = data.location;

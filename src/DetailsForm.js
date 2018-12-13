@@ -144,6 +144,7 @@ class DetailsForm extends React.Component {
           id="message"
           name="message"
           type="text"
+          rows={4}
           placeholder="Tell a story about your Totobee, or just say hi! Good vibes only :)"
           value={this.state.message}
           onChange={this.handleMessageChange}
