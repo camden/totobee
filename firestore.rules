@@ -1,13 +1,14 @@
 service cloud.firestore {
   match /databases/{database}/documents {
     match /visits/{visit} {
-      allow read;
+      allow read: if true;
       allow create: if request.auth != null;
       allow update, delete: if false;
     }
 
     match /totems/{totem} {
-      allow read, write: if false;
+      allow read: if true;
+      allow write: if false;
     }
   }
 }

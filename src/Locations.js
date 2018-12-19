@@ -81,7 +81,7 @@ class Locations extends React.Component {
     if (totem) {
       return totem.displayName;
     } else {
-      return totemCode;
+      return 'Unknown totem';
     }
   };
 
