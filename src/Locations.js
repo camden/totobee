@@ -1,4 +1,6 @@
 import React from 'react';
+import { format } from 'date-fns';
+
 import { Firestore, Firebase } from './firebase';
 import Link from './Link';
 
@@ -11,6 +13,7 @@ const parseInfo = data => {
     message: data.message,
     location: data.location,
     imageUrl: data.imageUrl,
+    timestamp: data.timestamp,
   };
 };
 
@@ -95,6 +98,10 @@ class Locations extends React.Component {
     }
 
     return message && <blockquote>{message}</blockquote>;
+  };
+
+  getDateFromTimestamp = _timestamp => {
+    return format(new Date(_timestamp.seconds * 1000), 'MM/DD/YYYY');
   };
 
   render() {
