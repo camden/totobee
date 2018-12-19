@@ -6,10 +6,11 @@ html {
 }
 
 body {
-  margin: 0;
   height: 100%;
   min-height: 100%;
   width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
 
   background: #aaffa9; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -50,4 +51,20 @@ h1 {
   font-family: 'Crimson Text';
   font-weight: bold;
   margin: 0;
+}
+
+textarea,
+input[type='text'] {
+  font-size: 16px;
+  padding: 15px 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.24);
+  border: none;
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.24);
+}
+
+textarea {
+  height: 5em;
+  width: 100%;
 }

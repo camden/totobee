@@ -15,22 +15,9 @@
   font-style: oblique;
 }
 
-textarea,
-input[type='text'] {
-  font-size: 16px;
-  padding: 15px 20px;
-  margin: 10px 0;
-  margin-bottom: 50px;
-  border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.24);
-  border: none;
-  -webkit-appearance: none;
-  -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.24);
-}
-
-textarea {
-  height: 5em;
-  width: 100%;
+.textInput {
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
 
 .formButton {

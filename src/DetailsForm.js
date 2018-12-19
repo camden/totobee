@@ -131,6 +131,7 @@ class DetailsForm extends React.Component {
           id="name"
           name="name"
           type="text"
+          className={styles.textInput}
           placeholder="What's your name?"
           value={this.state.name}
           onChange={this.handleNameChange}
@@ -141,6 +142,7 @@ class DetailsForm extends React.Component {
         </label>
         <div>
           <textarea
+            className={styles.textInput}
             id="message"
             name="message"
             type="text"
