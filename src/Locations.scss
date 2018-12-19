@@ -3,4 +3,62 @@
   height: 100%;
   padding: 16px;
   padding-bottom: 0px;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'header header'
+    'timeline list'
+    'footer footer';
+}
+
+.totemName {
+  grid-area: header;
+}
+
+.visitList {
+  padding: 0;
+  grid-area: list;
+}
+
+.visit {
+  border-radius: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.24);
+  background-color: white;
+  list-style: none;
+  padding: 20px;
+  position: relative;
+
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -39px;
+    background-color: white;
+    border: 4px solid darkblue;
+    border-radius: 100px;
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.verticalLine {
+  border-radius: 100px;
+  width: 10px;
+  border-left: 10px solid darkblue;
+  height: 100%;
+  grid-area: timeline;
+  margin-right: 20px;
+}
+
+.footer {
+  grid-area: footer;
 }

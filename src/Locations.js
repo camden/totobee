@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Firestore, Firebase } from './firebase';
+import Link from './Link';
 
 import styles from './Locations.scss';
 
@@ -85,6 +85,18 @@ class Locations extends React.Component {
     }
   };
 
+  getVisitMessage = _message => {
+    let message = _message;
+
+    const maxLength = 200;
+
+    if (message.length > maxLength) {
+      message = message.substr(0, maxLength) + '...';
+    }
+
+    return message && <blockquote>{message}</blockquote>;
+  };
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -98,17 +110,24 @@ class Locations extends React.Component {
       <div className={styles.container}>
         {Object.entries(this.formattedData()).map(([totemCode, visits]) => (
           <>
-            <h2>{this.getTotemDisplayName(totemCode)}</h2>
-            <ol>
+            <h2 className={styles.totemName}>
+              {this.getTotemDisplayName(totemCode)}
+            </h2>
+            <div className={styles.verticalLine} />
+            <ol className={styles.visitList}>
               {visits.map(visit => (
-                <li>
-                  <a href={visit.imageUrl} target="_blank">
+                <li
+                  className={styles.visit}
+                  key={visit.name + ' ' + visit.city}
+                >
+                  <Link to={visit.imageUrl} target="_blank">
                     {visit.name} from {visit.city}
-                  </a>
-                  {visit.message && <blockquote>{visit.message}</blockquote>}
+                  </Link>
+                  {this.getVisitMessage(visit.message)}
                 </li>
               ))}
             </ol>
+            <div className={styles.footer} />
           </>
         ))}
       </div>
