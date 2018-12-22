@@ -18,6 +18,8 @@ const parseInfo = data => {
 };
 
 const addCityData = data => {
+  // DELETE THIS VVVV
+  return data.map(d => 'Boston');
   const findCities = Firebase.functions().httpsCallable('findCities');
   return findCities({ positions: data.map(d => d.location) }).then(result => {
     return result && result.data && result.data.cities;
@@ -101,7 +103,10 @@ class Locations extends React.Component {
   };
 
   getDateFromTimestamp = _timestamp => {
-    return format(new Date(_timestamp.seconds * 1000), 'MM/DD/YYYY');
+    return format(
+      new Date(_timestamp.seconds * 1000),
+      'MMM Do, YYYY [at] h:ma'
+    );
   };
 
   render() {
@@ -130,9 +135,15 @@ class Locations extends React.Component {
                   <Link to={visit.imageUrl} target="_blank">
                     {visit.name} from {visit.city}
                   </Link>
+                  <div className={styles.timestamp}>
+                    {this.getDateFromTimestamp(visit.timestamp)}
+                  </div>
                   {this.getVisitMessage(visit.message)}
                 </li>
               ))}
+              <li className={`${styles.visit} ${styles.birth}`}>
+                {this.getTotemDisplayName(totemCode)} was created.
+              </li>
             </ol>
             <div className={styles.footer} />
           </>
