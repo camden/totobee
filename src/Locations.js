@@ -124,9 +124,12 @@ class Locations extends React.Component {
       <div className={styles.container}>
         {Object.entries(this.formattedData()).map(([totemCode, visits]) => (
           <>
-            <h2 className={styles.totemName}>
-              {this.getTotemDisplayName(totemCode)}
-            </h2>
+            <div className={styles.header}>
+              <h1 className={styles.totemName}>
+                {this.getTotemDisplayName(totemCode)}
+              </h1>
+              <div className={styles.caption}>It's not easy being gourd.</div>
+            </div>
             <div className={styles.verticalLine} />
             <ol className={styles.visitList}>
               {visits.map(visit => (

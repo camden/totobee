@@ -23,8 +23,19 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
     'footer footer';
 }
 
-.totemName {
+.header {
   grid-area: header;
+  margin: 10px;
+  margin-bottom: 50px;
+}
+
+.totemName {
+  margin: 0;
+  height: 1.4em;
+}
+
+.caption {
+  font-style: oblique;
 }
 
 .timestamp {
