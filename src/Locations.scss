@@ -48,6 +48,7 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   grid-area: list;
   margin: 0;
   padding: 0;
+  margin-bottom: 50px;
 }
 
 .visit {
@@ -96,11 +97,10 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.24);
   border-radius: 100px;
   border-left: $timeline-width solid $timeline-color;
-  height: 96%;
+  height: calc(100% - 60px);
   grid-area: timeline;
   position: relative;
   right: -$timeline-margin;
-  margin-bottom: 50px;
 }
 
 .footer {
