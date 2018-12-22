@@ -1,5 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { Firestore, Firebase } from './firebase';
 import Link from './Link';
@@ -132,6 +134,11 @@ class Locations extends React.Component {
                   className={styles.visit}
                   key={visit.name + ' ' + visit.city}
                 >
+                  <FontAwesomeIcon
+                    icon={faMapMarkerAlt}
+                    className={styles.icon}
+                    size="m"
+                  />
                   <Link to={visit.imageUrl} target="_blank">
                     {visit.name} from {visit.city}
                   </Link>
@@ -142,6 +149,11 @@ class Locations extends React.Component {
                 </li>
               ))}
               <li className={`${styles.visit} ${styles.birth}`}>
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className={styles.iconBirth}
+                  size="m"
+                />
                 {this.getTotemDisplayName(totemCode)} was created.
               </li>
             </ol>

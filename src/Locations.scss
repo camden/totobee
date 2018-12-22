@@ -69,6 +69,18 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   }
 }
 
+.icon,
+.iconBirth {
+  position: absolute;
+  color: white;
+  top: -$bubble-size / 2 + 6px;
+  left: $bubble-offset + 8px;
+}
+
+.iconBirth {
+  left: $bubble-offset + 7px;
+}
+
 .verticalLine {
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.24);
   border-radius: 100px;
@@ -77,7 +89,7 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   grid-area: timeline;
   position: relative;
   right: -$timeline-margin;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .footer {
