@@ -20,8 +20,6 @@ const parseInfo = data => {
 };
 
 const addCityData = data => {
-  // DELETE THIS VVVV
-  return data.map(d => 'Boston');
   const findCities = Firebase.functions().httpsCallable('findCities');
   return findCities({ positions: data.map(d => d.location) }).then(result => {
     return result && result.data && result.data.cities;
