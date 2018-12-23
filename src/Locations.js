@@ -126,7 +126,7 @@ class Locations extends React.Component {
               <h1 className={styles.totemName}>
                 {this.getTotemDisplayName(totemCode)}
               </h1>
-              <div className={styles.caption}>It's not easy being gourd.</div>
+              {/* <div className={styles.caption}>It's not easy being gourd.</div> */}
             </div>
             <div className={styles.verticalLine} />
             <ol className={styles.visitList}>

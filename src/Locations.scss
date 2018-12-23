@@ -15,7 +15,7 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   padding: 16px;
   padding-bottom: 0px;
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto 50px;
   grid-template-columns: auto 1fr;
   grid-template-areas:
     'header header'
@@ -48,7 +48,6 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   grid-area: list;
   margin: 0;
   padding: 0;
-  margin-bottom: 50px;
 }
 
 .visit {
