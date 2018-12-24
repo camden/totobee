@@ -121,7 +121,7 @@ class Locations extends React.Component {
     return (
       <div className={styles.container}>
         {Object.entries(this.formattedData()).map(([totemCode, visits]) => (
-          <>
+          <div className={styles.totemContainer}>
             <div className={styles.header}>
               <h1 className={styles.totemName}>
                 {this.getTotemDisplayName(totemCode)}
@@ -138,7 +138,7 @@ class Locations extends React.Component {
                   <FontAwesomeIcon
                     icon={faMapMarkerAlt}
                     className={styles.icon}
-                    size="m"
+                    size="1x"
                   />
                   <Link to={visit.imageUrl} target="_blank">
                     {visit.name} from {visit.city}
@@ -159,7 +159,7 @@ class Locations extends React.Component {
               </li>
             </ol>
             <div className={styles.footer} />
-          </>
+          </div>
         ))}
       </div>
     );

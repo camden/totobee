@@ -14,6 +14,9 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   height: 100%;
   padding: 16px;
   padding-bottom: 0px;
+}
+
+.totemContainer {
   display: grid;
   grid-template-rows: auto auto 50px;
   grid-template-columns: auto 1fr;
