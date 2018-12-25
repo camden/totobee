@@ -69,6 +69,29 @@ class DetailsForm extends React.Component {
     });
   };
 
+  renderGeneralSubtitle = () => {
+    return (
+      <p>
+        By imbuing themselves into physical objects, Totobees become known to
+        people like you. They want you to bring your dream to the forefront of
+        your mind and put it into words.{' '}
+        <span className={styles.emphasis}>
+          A dream immaterial is a dream unfulfilled.
+        </span>
+      </p>
+    );
+  };
+
+  renderDescription = () => {
+    const totobeeDescription = this.props.selectedTotem.description;
+
+    if (!totobeeDescription) {
+      return null;
+    }
+
+    return <p>{totobeeDescription}</p>;
+  };
+
   submitForm = () => {
     const {
       name,
@@ -101,7 +124,7 @@ class DetailsForm extends React.Component {
       return <Redirect push to="/success" />;
     }
 
-    let shareButtonText = 'Share →';
+    let shareButtonText = 'Here we go! →';
 
     if (isSubmitting) {
       shareButtonText = 'Loading...';
@@ -126,6 +149,14 @@ class DetailsForm extends React.Component {
           </span>
           .
         </h2>
+        <div className={styles.totobeeInfo}>
+          {this.renderDescription()}
+          {this.renderGeneralSubtitle()}
+        </div>
+        <label htmlFor="message">
+          Send a dream to the next person who finds {selectedTotem.displayName}{' '}
+          the Totobee!
+        </label>
         <label htmlFor="name">Your Name (required):</label>
         <input
           id="name"
@@ -136,10 +167,6 @@ class DetailsForm extends React.Component {
           value={this.state.name}
           onChange={this.handleNameChange}
         />
-        <label htmlFor="message">
-          Send a message to the next person who finds{' '}
-          {selectedTotem.displayName} the Totobee!
-        </label>
         <div>
           <textarea
             className={styles.textInput}
