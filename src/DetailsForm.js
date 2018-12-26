@@ -70,13 +70,15 @@ class DetailsForm extends React.Component {
   };
 
   renderGeneralSubtitle = () => {
+    const name = this.props.selectedTotem.displayName;
+
     return (
       <>
         <p>
-          Bring Eggy on your next adventure, then leave it for another person to
-          discover. Snap a picture of Eggy’s new temporary home, and remember to
-          upload it here! This photo along with your dream, name, and current
-          location will become part of Eggy’s travel history.
+          Bring {name} on your next adventure, then leave it for another person
+          to discover. Snap a picture of {name}’s new temporary home, and
+          remember to upload it here! This photo along with your dream, name,
+          and current location will become part of {name}’s travel history.
         </p>
         <p>
           Remember, just as dreams must move forward, so must Totobees. After

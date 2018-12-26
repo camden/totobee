@@ -153,7 +153,7 @@ class Locations extends React.Component {
                 <FontAwesomeIcon
                   icon={faPlus}
                   className={styles.iconBirth}
-                  size="m"
+                  size="1x"
                 />
                 {this.getTotemDisplayName(totemCode)} was created.
               </li>

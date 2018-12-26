@@ -88,11 +88,11 @@ $bubble-offset: (-1 * $bubble-size / 2) + $timeline-margin - $timeline-width / 2
   position: absolute;
   color: white;
   top: -$bubble-size / 2 + 6px;
-  left: $bubble-offset + 8px;
+  left: $bubble-offset + 9px;
 }
 
 .iconBirth {
-  left: $bubble-offset + 7px;
+  left: $bubble-offset + 8px;
 }
 
 .verticalLine {
