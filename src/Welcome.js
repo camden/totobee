@@ -29,7 +29,7 @@ class Welcome extends React.Component {
         </p>
 
         <p className={styles.emphasis}>
-          A dream immaterial is a dream unfulfilled.
+          A dream immaterial is a dream unfulfilled!
         </p>
 
         <p>What's your dream?</p>
