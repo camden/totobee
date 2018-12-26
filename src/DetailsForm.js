@@ -71,12 +71,19 @@ class DetailsForm extends React.Component {
 
   renderGeneralSubtitle = () => {
     return (
-      <p>
-        Bring Eggy on your next adventure, then leave it for another person to
-        discover. Snap a picture of Eggy’s new temporary home, and remember to
-        upload it here! This photo along with your dream, name, and current
-        location will become part of Eggy’s travel history.
-      </p>
+      <>
+        <p>
+          Bring Eggy on your next adventure, then leave it for another person to
+          discover. Snap a picture of Eggy’s new temporary home, and remember to
+          upload it here! This photo along with your dream, name, and current
+          location will become part of Eggy’s travel history.
+        </p>
+        <p>
+          Remember, just as dreams must move forward, so must Totobees. After
+          four days, your Totobee’s energy will begin to wane. At this time, it
+          needs to move on to help others find their dreams.
+        </p>
+      </>
     );
   };
 
