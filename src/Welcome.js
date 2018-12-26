@@ -28,6 +28,10 @@ class Welcome extends React.Component {
           that people might find their path in life.
         </p>
 
+        <p className={styles.emphasis}>
+          A dream immaterial is a dream unfulfilled.
+        </p>
+
         <p>What's your dream?</p>
 
         <p>It’s time to meet your Totobee and begin your journey.</p>

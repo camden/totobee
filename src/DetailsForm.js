@@ -72,12 +72,10 @@ class DetailsForm extends React.Component {
   renderGeneralSubtitle = () => {
     return (
       <p>
-        By imbuing themselves into physical objects, Totobees become known to
-        people like you. They want you to bring your dream to the forefront of
-        your mind and put it into words.{' '}
-        <span className={styles.emphasis}>
-          A dream immaterial is a dream unfulfilled.
-        </span>
+        Bring Eggy on your next adventure, then leave it for another person to
+        discover. Snap a picture of Eggy’s new temporary home, and remember to
+        upload it here! This photo along with your dream, name, and current
+        location will become part of Eggy’s travel history.
       </p>
     );
   };
@@ -153,32 +151,29 @@ class DetailsForm extends React.Component {
           {this.renderDescription()}
           {this.renderGeneralSubtitle()}
         </div>
-        <label htmlFor="message">
-          Send a dream to the next person who finds {selectedTotem.displayName}{' '}
-          the Totobee!
-        </label>
-        <label htmlFor="name">Your Name (required):</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          className={styles.textInput}
-          placeholder="What's your name?"
-          value={this.state.name}
-          onChange={this.handleNameChange}
-        />
+        <label htmlFor="message">What is your dream?</label>
         <div>
           <textarea
-            className={styles.textInput}
+            className={styles.dreamInput}
             id="message"
             name="message"
             type="text"
             rows={4}
-            placeholder="Tell a story about your Totobee, or just say hi! Good vibes only :)"
+            placeholder="What will bring you to happiness?"
             value={this.state.message}
             onChange={this.handleMessageChange}
           />
         </div>
+        <label htmlFor="name">What is your name?</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          className={styles.nameInput}
+          placeholder="What's your name?"
+          value={this.state.name}
+          onChange={this.handleNameChange}
+        />
         <label>
           Snap a picture of {selectedTotem.displayName} the Totobee in its new
           temporary dwelling!
